@@ -37,6 +37,14 @@ async def main():
         metavar="PORT",
         default=502,
     )
+    parser.add_argument(
+        "--fanmode",
+        type=int,
+        dest="fanmode",
+        help="fan mode to set, default 2",
+        metavar="FANMODE",
+        default=2,
+    )
     args = parser.parse_args()
 
     if (not args.host) or (not args.port):
@@ -45,6 +53,14 @@ async def main():
 
     client = S21Client(args.host, args.port)
     
+    await client.set_fan_mode(args.fanmode)
+    
+    status = await client.poll()
+    
+    print(repr(status.fan_mode))
+
+if __name__ == "__main__":
+    asyncio.run(main())
 
 # set_bypass_mode(1) = Manual
 # set_bypass_mode(2) = Auto
@@ -53,16 +69,11 @@ async def main():
 
 
 #Normalläge
-    status = await client.set_fan_mode(2)
-    status = await client.set_bypass_mode(2)
+#    status = await client.set_fan_mode(2)
+#    status = await client.set_bypass_mode(2)
     
 #Sommarkyla    
  #   status = await client.set_fan_mode(3)
   #  status = await client.set_bypass_mode(1)
     
-    status = await client.poll()
-    
-    print(repr(status.fan_mode))
 
-if __name__ == "__main__":
-    asyncio.run(main())

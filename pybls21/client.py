@@ -29,8 +29,8 @@ class S21Client:
     async def poll(self) -> ClimateDevice:
         try:
             coils = await self.client.read_coils(0, 4)
-            holding_registers = await self.client.read_holding_registers(0, 45)
-            input_registers = await self.client.read_input_registers(0, 39)
+            holding_registers = await self.client.read_holding_registers(0, 75)
+            input_registers = await self.client.read_input_registers(0, 45)
 
             is_on: bool = coils[0]
             is_boosting: bool = coils[3]
@@ -46,6 +46,7 @@ class S21Client:
             device_type: int = input_registers[37]
             operation_mode: int = holding_registers[43]
             manual_fan_speed_percent: int = holding_registers[17]
+            bypass_mode: int = holding_registers[74]
 
             model: str = "S21" if device_type == 1 else "Unknown"
 
@@ -84,6 +85,7 @@ class S21Client:
                 max_fan_level=max_fan_level,
                 filter_state=filter_state,
                 alarm_state=alarm_state,
+                bypass_mode=bypass_mode,
             )
 
             return self.device
@@ -120,6 +122,9 @@ class S21Client:
 
     async def set_fan_mode(self, mode: int) -> None:
         await self.client.write_register(2, mode)
+    
+    async def set_bypass_mode(self, mode: int) -> None:
+        await self.client.write_register(74, mode)
 
     async def set_manual_fan_speed_percent(self, speed_percent: int) -> None:
         await self.client.write_register(17, speed_percent)

@@ -45,6 +45,15 @@ async def main():
 
     client = S21Client(args.host, args.port)
     
+    #status = await client.set_bypass_mode(1)
+    
+    status = await client.poll()
+    
+    #print(repr(status))
+    print(repr(status.bypass_mode))
+
+if __name__ == "__main__":
+    asyncio.run(main())
 
 # set_bypass_mode(1) = Manual
 # set_bypass_mode(2) = Auto
@@ -53,16 +62,11 @@ async def main():
 
 
 #Normalläge
-    status = await client.set_fan_mode(2)
-    status = await client.set_bypass_mode(2)
+#    status = await client.set_fan_mode(2)
+#    status = await client.set_bypass_mode(2)
     
 #Sommarkyla    
  #   status = await client.set_fan_mode(3)
   #  status = await client.set_bypass_mode(1)
     
-    status = await client.poll()
-    
-    print(repr(status.fan_mode))
 
-if __name__ == "__main__":
-    asyncio.run(main())
