@@ -42,6 +42,8 @@ class S21Client:
             current_fan_level: int = holding_registers[2]  # 255 - manual
             temp_before_heating_x10: int = input_registers[1]
             temp_after_heating_x10: int = input_registers[2]
+            temp_out_from_room_x10: int = input_registers[3]
+            temp_out_exhaust_x10: int = input_registers[4]
             firmware_info: list[int] = input_registers[34:37]
             device_type: int = input_registers[37]
             operation_mode: int = holding_registers[43]
@@ -86,6 +88,8 @@ class S21Client:
                 filter_state=filter_state,
                 alarm_state=alarm_state,
                 bypass_mode=bypass_mode,
+                current_room_temperature=temp_out_from_room_x10 / 10,
+                current_exhaust_temperature=temp_out_exhaust_x10 / 10,
             )
 
             return self.device

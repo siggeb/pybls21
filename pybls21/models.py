@@ -34,6 +34,8 @@ class ClimateDevice(NamedTuple):
     temperature_unit: str
     precision: float
     current_temperature: float
+    current_room_temperature: float
+    current_exhaust_temperature: float
     target_temperature: float
     target_temperature_step: float
     max_temp: float
