@@ -3,6 +3,7 @@ import argparse
 import asyncio
 import logging
 import sys
+import json
 
 from pybls21 import S21Client
 
@@ -48,10 +49,21 @@ async def main():
     status = await client.poll()
     
     #print(repr(status))
-    print(repr(status.current_temperature))
-    print(repr(status.current_intake_temperature))
-    print(repr(status.current_room_temperature))
-    print(repr(status.current_exhaust_temperature))
+    #print(repr(status.current_temperature))
+    #print(repr(status.current_intake_temperature))
+    #print(repr(status.current_room_temperature))
+    #print(repr(status.current_exhaust_temperature))
+    
+    json_formatted_str = json.dumps({
+        "current_temperature": status.current_temperature, 
+        "current_intake_temperature": status.current_intake_temperature, 
+        "current_room_temperature" : status.current_room_temperature,
+        "current_exhaust_temperature" : status.current_exhaust_temperature
+    })
+
+    print(json_formatted_str)
+    
+    
     #current_temperature = into room temp
     #current_intake_temperature = outside temp
 
