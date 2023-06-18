@@ -54,14 +54,16 @@ async def main():
     #print(repr(status.current_room_temperature))
     #print(repr(status.current_exhaust_temperature))
     
-    #json_formatted_str = json.dumps({
-    #    "current_temperature": status.current_temperature, 
-    #    "current_intake_temperature": status.current_intake_temperature, 
-    #    "current_room_temperature" : status.current_room_temperature,
-    #    "current_exhaust_temperature" : status.current_exhaust_temperature
-    # })
+    json_formatted_str = json.dumps({
+        "current_temperature": status.current_temperature, 
+        "current_intake_temperature": status.current_intake_temperature, 
+        "current_room_temperature" : status.current_room_temperature,
+        "current_exhaust_temperature" : status.current_exhaust_temperature,
+        "fan_mode" : status.fan_mode,
+        "bypass_mode" : status.bypass_mode
+     })
     
-    json_formatted_str = json.dumps(str(status))
+    #json_formatted_str = json.dumps(str(status))
 
     print(json_formatted_str)
     
